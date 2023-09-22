@@ -16,9 +16,7 @@ Para este ejem´plo se utilizará el gestor de base de datos (SQLITE3) ( https:/
 .open base1.bd
 
 
---create table contactos (
-
-
+create table contactos (  
 ---->id_contacto                   int
 
 
@@ -31,4 +29,4 @@ Para este ejem´plo se utilizará el gestor de base de datos (SQLITE3) ( https:/
 
 ---->email                         varchar
 
-telefono                      varchar);
+---->telefono                      varchar);
