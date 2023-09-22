@@ -17,16 +17,9 @@ Para este ejem´plo se utilizará el gestor de base de datos (SQLITE3) ( https:/
 
 
 create table contactos (  
----->id_contacto                   int
-
-
----->nombre                        varchar
-
-
----->primer_apellido               varchar
-
----->segundo_apellido              varchar
-
----->email                         varchar
-
+---->id_contacto                   int  
+---->nombre                        varchar  
+---->primer_apellido               varchar  
+---->segundo_apellido              varchar  
+---->email                         varchar  
 ---->telefono                      varchar);
