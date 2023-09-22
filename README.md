@@ -11,3 +11,6 @@ Para este ejem´plo se utilizará el gestor de base de datos (SQLITE3) ( https:/
 |No.|Campo|Tipo|Restricciones|Descripción|
 |--|--|--|--|--|
 |1|id_contactos|int|PRIMARY KEY|Llave primaria de la tabla|
+
+## 3.2 Script 
+
