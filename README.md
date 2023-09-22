@@ -13,4 +13,11 @@ Para este ejem´plo se utilizará el gestor de base de datos (SQLITE3) ( https:/
 |1|id_contactos|int|PRIMARY KEY|Llave primaria de la tabla|
 
 ## 3.2 Script 
-
+.open base1.bd
+create table contactos (
+id_contacto                   int
+nombre                        varchar
+primer_apellido               varchar
+segundo_apellido              varchar
+email                         varchar
+telefono                      varchar
