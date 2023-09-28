@@ -1,15 +1,7 @@
 from typing import Union
 import csv
+import pandas as pd
 from fastapi import FastAPI
-from asposecells.api import Workbook
-
-import jpype
-jpype.startJVM()
-
-workbook = Workbook("contactos.csv")
-workbook.save("contactos.json")
-
-jpype.shutdownJVM()
 
 app = FastAPI()
 
@@ -18,10 +10,7 @@ def read_root():
     return {"Hello": "World"}
 
 # Define a function to read the CSV file and return its data as JSON
+@app.get("/v1/contactos_csv")
 def read_contactos_csv():
-    response = []
-    with open("contactos.csv", newline="") as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            response.append(row)
-    return response
+    df = pd.read_csv("contactos.csv")
+    return df.to_dict(orient='records')
