@@ -8,7 +8,9 @@ import json
 app = FastAPI()
 
 # Definimos una ruta de operación GET en el servidor FastAPI
-@app.get("/v1/contactos", status_code=202)
+@app.get("/v1/contactos", status_code=202, 
+summary="Endpoint raíz de la API Contactos",
+description= "Endpoint raiz",)
 # Definimos una función asíncrona para manejar las solicitudes GET a la ruta "/v1/contactos"
 async def read_contactos_csv():
     # Leemos el archivo CSV usando pandas
