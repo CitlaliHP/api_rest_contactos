@@ -27,7 +27,6 @@ async def read_contactos_csv():
     contactos_data = df.to_json(orient="records")
     # Devolvemos los datos en formato JSON
     return json.loads(contactos_data)
-    app = FastAPI()
 
 # Modelo Pydantic para representar un contacto
 class Contacto(BaseModel):
