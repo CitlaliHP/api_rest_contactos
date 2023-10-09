@@ -1,9 +1,14 @@
 import os
+
 from typing import Annotated
+
+from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import HTMLResponse
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Rutas de destino para PDFs e imágenes
 pdf_path = "pruebas/archivos/static/pdf/"
