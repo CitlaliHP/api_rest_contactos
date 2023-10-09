@@ -1,10 +1,10 @@
+import os 
 from typing import Annotated
 
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import HTMLResponse
 
 app = FastAPI()
-
 
 @app.post("/files/")
 async def create_files(
