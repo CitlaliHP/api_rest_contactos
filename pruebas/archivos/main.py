@@ -6,8 +6,8 @@ from fastapi.responses import HTMLResponse
 app = FastAPI()
 
 # Rutas de destino para PDFs e imágenes
-pdf_path = "pruebas/archivos/static/pdf"
-image_path = "pruebas/archivos/static/imagenes"
+pdf_path = "pruebas/archivos/static/pdf/"
+image_path = "pruebas/archivos/static/imagenes/"
 
 @app.post("/uploadfiles/")
 async def create_upload_files(
@@ -39,4 +39,3 @@ async def main():
     </body>
     """
     return HTMLResponse(content=content)
-    
