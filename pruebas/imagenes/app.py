@@ -12,4 +12,4 @@ region.save("recorte.png")
 
 r, g, b = im.split()
 region = Image.merge("RGB", (g, b, r))
-region.save("cambio.png")
+region.save("cambios.png")
