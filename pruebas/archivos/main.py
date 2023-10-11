@@ -1,45 +1,42 @@
 import os
-
-from typing import Annotated
-
-from fastapi.staticfiles import StaticFiles
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from typing import List
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-# Rutas de destino para PDFs e imágenes
-pdf_path = "pruebas/archivos/static/pdf/"
-image_path = "pruebas/archivos/static/imagenes/"
+@app.post("/files/")
+async def create_files(files: List[UploadFile] = File(...)):
+    saved_file_paths = []
+    for i, file in enumerate(files):
+        file_path = os.path.join("static", "imagenes", f"{file.filename}")
+        with open(file_path, "wb") as f:
+            f.write(file.file.read())
+        saved_file_paths.append(file_path)
+    return {"saved_file_paths": saved_file_paths}
 
 @app.post("/uploadfiles/")
-async def create_upload_files(
-    files: Annotated[list[UploadFile], File(description="Multiple files as UploadFile")]
-):
-    for file in files:
-        # Verificar la extensión del archivo
-        if file.filename.endswith(".pdf"):
-            destination = os.path.join(pdf_path, file.filename)
-        elif file.filename.lower().endswith((".jpg", ".jpeg", ".png", ".gif")):
-            destination = os.path.join(image_path, file.filename)
-        else:
-            return {"error": "Formato de archivo no válido"}
-
-        # Guardar el archivo en la ruta correspondiente
-        with open(destination, "wb") as file_object:
-            file_object.write(file.file.read())
-    
-    return {"message": "Archivo(s) subido(s) exitosamente"}
+async def create_upload_files(files: List[UploadFile] = File(...)):
+    saved_file_paths = []
+    for i, file in enumerate(files):
+        file_path = os.path.join("static", "pdf", f"{file.filename}")
+        with open(file_path, "wb") as f:
+            f.write(file.file.read())
+        saved_file_paths.append(file_path)
+    return {"saved_file_paths": saved_file_paths}
 
 @app.get("/")
 async def main():
     content = """
     <body>
+    <form action="/files/" enctype="multipart/form-data" method="post">
+    <input type="file" name="files" multiple>
+    <input type="submit" value="Subir archivos">
+    </form>
     <form action="/uploadfiles/" enctype="multipart/form-data" method="post">
-    <input name="files" type="file" multiple>
-    <input type="submit">
+    <input type="file" name="files" multiple>
+    <input type="submit" value="Subir archivos PDF">
     </form>
     </body>
     """
