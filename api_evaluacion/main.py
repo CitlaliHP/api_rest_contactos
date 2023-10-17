@@ -55,10 +55,10 @@ async def add_contacto(contacto: Contacto):
 # Ruta PUT/PATCH para actualizar los datos de un contacto
 @app.put("/contactos/{id}", response_model=Contacto)
 async def update_contacto(id: int, contacto: Contacto):
-    # Busca el contacto por id_contacto y actualiza sus datos
+    # Busca el contacto por id y actualiza sus datos
     for i in range(len(contactos_lista)):
         if contactos_lista[i]['id'] == id:
-            contactos_lista[i] = {"id": contacto.id, "nombre": contacto.nombre,"primerApellido": contacto.primerApellido, "segundoApellido": contacto.segundoApellido, "email": contacto.email, "telefono": contacto.telefono}
+            contactos_lista[i] = {"id": id, "nombre": contacto.nombre,"primerApellido": contacto.primerApellido, "segundoApellido": contacto.segundoApellido, "email": contacto.email, "telefono": contacto.telefono}
             break
     else:
         raise HTTPException(status_code=404, detail=f"El contacto con id {id} no se encontró")
@@ -74,18 +74,18 @@ async def update_contacto(id: int, contacto: Contacto):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al actualizar el contacto: {str(e)}")
 
-    return {"id": contacto.id, "nombre": contacto.nombre,"primerApellido": contacto.primerApellido, "segundoApellido": contacto.segundoApellido, "email": contacto.email, "telefono": contacto.telefono}
+    return {"id": id, "nombre": contacto.nombre,"primerApellido": contacto.primerApellido, "segundoApellido": contacto.segundoApellido, "email": contacto.email, "telefono": contacto.telefono}
 
 # Ruta DELETE para borrar un contacto
 @app.delete("/contactos/{id}")
 async def delete_contacto(id: int):
-    # Busca el contacto por id_contacto y lo borra de la lista de contactos y del archivo CSV
+    # Busca el contacto por id y lo borra de la lista de contactos y del archivo CSV
     for i in range(len(contactos_lista)):
         if contactos_lista[i]['id'] == id:
             del contactos_lista[i]
             break
     else:
-        raise HTTPException(status_code=404, detail=f"El contacto con id {id_contacto} no se encontró")
+        raise HTTPException(status_code=404, detail=f"El contacto con id {id} no se encontró")
 
     # Actualiza el archivo CSV después de borrar el contacto
     try:
@@ -98,7 +98,7 @@ async def delete_contacto(id: int):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al borrar el contacto: {str(e)}")
 
-    return {"detail": f"El contacto con id {id_contacto} ha sido borrado"}
+    return {"detail": f"El contacto con id {id} ha sido borrado"}
 
 # Ruta GET para buscar contactos por nombre
 @app.get("/contactos/{nombre}", response_model=list[Contacto])
